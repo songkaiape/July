@@ -1,0 +1,34 @@
+#headnav {
+    height: 68px;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+#headnav > .container > nav, .logo {
+    float: left;
+}
+
+#headnav > .container > .logo {
+    margin-right: 20px;
+    position: relative;
+    display: inline-block;
+    padding-top: 18px;
+}
+
+#headnav > .container > nav > ul > li {
+    list-style: none;
+    float: left;
+}
+
+#headnav > .container > nav > ul > li > a {
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding: 25px 27px;
+    color: #777;
+}
+
+.active,
+#headnav > .container > nav > ul > li > a:hover {
+    color: #00BFF3;
+}

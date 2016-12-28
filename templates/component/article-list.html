@@ -1,0 +1,81 @@
+<section>
+    <ul class="article-list">
+        {% for archive in archives %}
+            <li>
+                <header>
+                    <h1>
+                        <a href="archive/{{ archive.id }}">{{ archive.title }}</a>
+                    </h1>
+                    <div class="article-meta">
+                        <i class="fa fa-calendar" aria-hidden="true"> {{ archive.created_time }}</i>
+                        <i class="fa fa-folder" aria-hidden="true"> <a href="/category/{{ archive.categories__name }}">{{ archive.categories__name }}</a></i>
+                        <i class="fa fa-tag" aria-hidden="true"> {{ archive.tag }}</i>
+                    </div>
+                </header>
+                <div class="article-entry">
+                    {% autoescape off %}
+                        <div id="content{{ archive.id }}" name="archive">
+                            <textarea>{{ archive.abstract }}</textarea>
+                        </div>
+                    {% endautoescape %}
+                </div>
+                <hr>
+                <footer>
+                </footer>
+            </li>
+        {% endfor %}
+    </ul>
+    <aside>
+        <div class="auto-me">
+            <div class="me-avatar">
+                <img src="{{ about.avatar }}">
+            </div>
+            <div class="me-name">
+                <h3>{{ about.name }}</h3>
+            </div>
+            <div class="me-declaration">
+                {{ about.declaration }}
+            </div>
+
+            <div class="me-icon">
+                {% for icon in icons %}
+                <a href="{{ icon.url }}">
+                    <i class="fa {{ icon.icon }}" aria-hidden="true"></i>
+                </a>
+                {% endfor %}
+            </div>
+
+        </div>
+
+        <div class="category-list">
+            <h3>分类列表</h3>
+            <ul>
+                {% for category in category_list %}
+                    <li>
+                        <a href="/category/{{ category.name }}" class="category-name">{{ category.name }}</a>
+                        <span class="category-count">({{ category.count }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="links">
+            <h3>友情链接</h3>
+            <ul>
+                {% for link in links %}
+                    <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </aside>
+    <footer class="tag-page">
+        {% if archives.has_previous %}
+            <a href="?page={{ archives.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ archives.number }} of {{ archives.paginator.num_pages }}</span>
+        {% if archives.has_next %}
+            <a href="?page={{ archives.next_page_number }}">Next</a>
+        {% endif %}
+    </footer>
+</section>
+<script src="/static/js/article-list.js"></script>
