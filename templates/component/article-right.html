@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="/static/css/article-right.css">
+<aside class="article-list-or-article-right">
+    <div class="auto-me">
+        <div class="me-avatar">
+            <img src="{{ about.avatar }}">
+        </div>
+        <div class="me-name">
+            <h3>{{ about.name }}</h3>
+        </div>
+        <div class="me-declaration">
+            {{ about.declaration }}
+        </div>
+
+        <div class="me-icon">
+            {% for icon in icons %}
+                <a href="{{ icon.url }}">
+                    <i class="fa {{ icon.icon }}" aria-hidden="true"></i>
+                </a>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="category-list-right">
+        <h3>分类列表</h3>
+        <ul>
+            {% for category in category_list %}
+                <li>
+                    <a href="/category/{{ category.name }}" class="category-name">{{ category.name }}</a>
+                    <span class="category-count">({{ category.count }})</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="links">
+        <h3>友情链接</h3>
+        <ul>
+            {% for link in links %}
+                <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>

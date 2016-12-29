@@ -11,7 +11,10 @@ body {
 
 header > .container,
 #bottom > div,
-section,
+.article-centent,
+.article-list-left,
+.category-list,
+.about-me,
 .notfound {
     width: 1140px;
     margin: auto;

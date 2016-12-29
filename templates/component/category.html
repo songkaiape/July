@@ -1,60 +1,12 @@
-<section>
+<link rel="stylesheet" href="/static/css/category-list.css">
+<section class="category-list">
     <ul>
         {% for archive in archive_list %}
-            <li style="color: #b1b1b1">
+            <li>
                 <span>{{ archive.created_time }}</span>
-                <a style="text-decoration: none;margin-left: 30px;color: black" href="/archive/{{ archive.id }}">{{ archive.title }}</a>
+                <a href="/archive/{{ archive.id }}">{{ archive.title }}</a>
             </li>
         {% endfor %}
     </ul>
-
-    <aside>
-        <div class="auto-me">
-            <div class="me-avatar">
-                <img src="/static/image/avatar.png">
-            </div>
-            <div class="me-name">
-                <h3>安生</h3>
-            </div>
-            <div class="me-declaration">
-                你的烦恼说不定在这里就可以找到，记得常来光顾~
-            </div>
-            <div class="me-icon">
-                <a href="#">
-                    <i class="fa fa-weibo" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                    <i class="fa fa-github" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                    <i class="fa fa-weixin" aria-hidden="true"></i>
-                </a>
-                <a href="#">
-                    <i class="fa fa-rss" aria-hidden="true"></i>
-                </a>
-            </div>
-        </div>
-
-        <div class="category-list">
-            <h3>分类列表</h3>
-            <ul>
-                {% for category in category_list %}
-                    <li>
-                        <a href="/category/{{ category.name }}" class="category-name">{{ category.name }}</a>
-                        <span class="category-count">({{ category.count }})</span>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="links">
-            <h3>友情链接</h3>
-            <ul>
-                {% for link in links %}
-                    <li><a href="{{ link.url }}">{{ link.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </aside>
-
+    {% include 'component/article-right.html' %}
 </section>

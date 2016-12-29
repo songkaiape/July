@@ -1,29 +1,29 @@
-section > article {
+.article-centent > article {
     background: #ffffff;
     margin: 25px 0;
     padding: 20px 30px;
     border: 1px solid #eeeeee;
 }
 
-section > article > header > h1 {
+.article-centent > article > header > h1 {
     font-size: 1.7em;
     color: #565a5f;
     margin-bottom: 20px;
 }
 
-section > article > header > .article-meta > i,
-section > article > header > .article-meta > span {
+.article-centent > article > header > .article-meta > i,
+.article-centent > article > header > .article-meta > span {
     margin-right: 20px;
     color: #565a5f;
     font-size: 0.9em;
 }
 
-section > article > .article_body {
+.article-centent > article > .article_body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-section > article > .article-copyright {
+.article-centent > article > .article-copyright {
     line-height: 30px;
     border-top: 2px solid #f4f4f4;
     padding: 0;

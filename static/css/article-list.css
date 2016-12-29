@@ -1,9 +1,9 @@
-section > ul {
+.article-list {
     width: 800px;
     float: left;
 }
 
-section > ul > li {
+.article-list > li {
     background: #ffffff;
     margin: 25px 0;
     padding: 22px 18px;
@@ -12,33 +12,33 @@ section > ul > li {
     border-radius: 1%;
 }
 
-section > ul > li > header > h1 > a {
+.article-list > li > header > h1 > a {
     text-decoration: none;
     color: #565a5f;
 }
 
-section > ul > li > header > h1 > a:hover {
+.article-list > li > header > h1 > a:hover {
     color: #38b7ea;
 }
 
-section > ul > li > header > .article-meta {
+.article-list > li > header > .article-meta {
     margin-bottom: 20px;
     margin-top: 20px;
 }
 
-section > ul > li > header > .article-meta > i {
+.article-list > li > header > .article-meta > i {
     margin-right: 20px;
     text-transform: uppercase;
     font-size: 14px;
     color: #565a5f;
 }
 
-section > ul > li > header > .article-meta > i > a {
+.article-list > li > header > .article-meta > i > a {
     color: #565a5f;
     text-decoration: none;
 }
 
-section > ul > li > hr {
+.article-list > li > hr {
     height: 1px;
     width: 100%;
     background: #dddddd;
@@ -46,7 +46,7 @@ section > ul > li > hr {
     margin-top: 20px;
 }
 
-section > ul > li > footer > p {
+.article-list > li > footer > p {
     float: left;
     font-size: 12px;
     margin-right: 50px;
@@ -54,122 +54,13 @@ section > ul > li > footer > p {
     line-height: 7px;
 }
 
-section > aside {
-    float: right;
-    width: 300px;
-}
-
-section > aside > div {
-    background: #ffffff;
-    float: right;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    border: 1px solid #eeeeee;
-    border-radius: 1%;
-    width: 300px;
-}
-
-section > aside > .auto-me {
-    width: 300px;
-    background: url("/static/image/me-cover.jpg") no-repeat no-repeat;
-    background-color: #ffffff;
-    text-align: center;
-}
-
-section > aside > .auto-me > .me-avatar {
-    padding-top: 27%;
-}
-
-section > aside > .auto-me > .me-avatar > img {
-    border: 5px solid #ffffff;
-    border-radius: 50%;
-}
-
-section > aside > .auto-me > .me-declaration {
-    width: 260px;
-    margin: auto;
-    padding-left: 5px;
-    line-height: 26px;
-    color: #565a5f;
-}
-
-section > aside > .auto-me > .me-declaration,
-section > aside > .auto-me > .me-name {
-    margin-top: 20px;
-}
-
-section > aside > .auto-me > .me-icon > a {
-    color: #C2C2C2;
-    margin: 0 10px;
-    text-decoration: none;
-    font-size: 20px;
-    line-height: 70px;
-}
-
-section > aside > .auto-me > .me-icon > a:hover {
-    color: #00bff3;
-    font-size: 30px;
-}
-
-section > aside > .links,
-section > aside > .category-list {
-    padding: 20px 15px;
-}
-
-section > aside > .category-list > h3,
-section > aside > .links > h3 {
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-section > aside > .category-list > ul {
-    list-style: none;
-    margin: 0 30px;
-    border-bottom: 2px solid #eeeeee;
-    padding-bottom: 5px;
-    font-size: 14px;
-
-}
-
-section > aside > .category-list > ul > li > .category-name {
-    text-decoration: none;
-    color: black;
-}
-
-section > aside > .category-list > ul > li > .category-name:hover {
-    color: #00bff3;
-}
-
-section > aside > .category-list > ul > li > .category-count {
-    float: right;
-}
-
-section > aside > .links > ul {
-    text-align: left;
-    padding-left: 50px;
-}
-
-section > aside > .category-list > ul > li,
-section > aside > .links > ul > li {
-    margin-top: 10px;
-}
-
-section > aside > .links > ul > li > a {
-    color: #000000;
-    text-decoration: none;
-}
-
-section > aside > .links > ul > li > a:hover {
-    color: #00bff3;
-}
-
-section > footer.tag-page {
+.tag-page {
     clear: both;
     text-align: center;
     width: 800px;
 }
 
-section > footer.tag-page > a {
+.tag-page > a {
     text-decoration: none;
     color: black;
     margin: 0 10px;
@@ -177,11 +68,11 @@ section > footer.tag-page > a {
     border-radius: 5%;
 }
 
-section > footer.tag-page > a:hover {
+.tag-page > a:hover {
     background: #38b7ea;
     color: #ffffff;
 }
 
-section > footer.tag-page > span {
+.tag-page > span {
     font-size: 14px;
 }

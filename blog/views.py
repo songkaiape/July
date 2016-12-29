@@ -141,6 +141,11 @@ class CategoryListVIew(ListView, MeInfo):
             category['count'] = count
         # 友情链接
         links = self.get_links()
+        # 图标
+        icons = self.get_icons()
+        # 关于我信息
+        about = self.get_about()
+
         return render(request, 'category.html', locals())
 
 
