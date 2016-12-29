@@ -20,12 +20,12 @@ class ArchiveAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            'all': ('/static/lib/editor.md/editormd.css',)
+            'all': ('/static/plugin/editor.md/editormd.css',)
         }
         js = (
-            '/static/lib/editor.md/jquery.min.js',
-            '/static/lib/editor.md/editormd.js',
-            '/static/lib/editor.md/config.js'
+            '/static/plugin/editor.md/jquery.min.js',
+            '/static/plugin/editor.md/editormd.js',
+            '/static/plugin/editor.md/config.js'
         )
 
 
