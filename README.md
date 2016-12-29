@@ -7,8 +7,9 @@
 ### Create a new post
 
 ``` bash
-$ git clone https://github.com/anshengme/July.git
-$ cd ./July
+$ wget https://github.com/anshengme/July/archive/v0.1.0.tar.gz
+$ tar xf v0.1.0.tar.gz
+$ cd ./July-0.1.0
 $ pip install -r requirements.txt
 ```
 
