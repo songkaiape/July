@@ -172,3 +172,8 @@ class NotFoundVIew(DateDetailView, MeInfo):
     def get(self, request, *args, **kwargs):
         webhead = self.get_webhead()
         return render(request, '404.html', locals())
+
+
+def OldArticleJumps(request, url):
+    ID = models.Article.objects.filter(url=url.split('.')[0]).values('id')[0]['id']
+    return HttpResponseRedirect('/article/%d' % ID)

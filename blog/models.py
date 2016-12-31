@@ -29,6 +29,7 @@ class Article(models.Model):
     )
 
     title = models.CharField(max_length=32, unique=True, verbose_name='文章标题')
+    url = models.CharField(max_length=32, verbose_name='连接', null=True, blank=True, unique=True)
     abstract = models.TextField(verbose_name='摘要')
     body = models.TextField(verbose_name='文章内容')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')

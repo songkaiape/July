@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^404/$', blog.NotFoundVIew.as_view()),
     url(r'^category/(?P<category_name>.+)/$', blog.CategoryListVIew.as_view()),
     url(r'^admin/', admin.site.urls),
+    url(r'^\d{4}/\d{2}/(?P<url>\w.+)/$', blog.OldArticleJumps)
 ]

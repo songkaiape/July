@@ -13,7 +13,7 @@ class ArchiveAdmin(admin.ModelAdmin):
 
         ('更多设置', {
             'classes': ('collapse',),
-            'fields': (),
+            'fields': ('url',),
         }),
     )
     list_display = ('id', 'title', 'categories', 'created_time', 'last_modified_time')
