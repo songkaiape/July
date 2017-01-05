@@ -1,12 +1,69 @@
-{% extends 'component/base.html' %}
-{% block header %}
-    {% include 'component/header.html' %}
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
 {% endblock %}
-
 {% block section %}
-    {% include 'component/category.html' %}
-{% endblock %}
+    <section class="category-list container col s8 m8 l8 ">
+        <div class="row">
 
-{% block footer %}
-    {% include 'component/footer.html' %}
+            <section class="col s9 m9 l9 push-s9 article-list-left">
+                <ul>
+                    {% for archive in archive_list %}
+                        <li>
+                            <span>{{ archive.created_time }}</span>
+                            <a href="{% url 'article' archive.url %}">{{ archive.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="col s3 m3 l3 push-s3 category-list-right">
+                <div class="auto-me">
+
+                    <div class="me-avatar">
+                        <img src="https://blog.ansheng.me/static/image/avatar.png">
+                    </div>
+
+                    <div class="me-name">
+                        <h3>安生</h3>
+                    </div>
+
+                    <div class="me-declaration">
+                        你的烦恼说不定在这家网站可以找到，欢迎经常来光顾~
+                    </div>
+
+                    <div class="me-icon">
+                        <a href="#">
+                            <i class="fa fa-github" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="category-right-list">
+                    <h3>分类列表</h3>
+                    <ul>
+                        {% for category in category_list %}
+                            <li>
+                                <a href="/category/{{ category.name }}" class="category-name">{{ category.name }}</a>
+                                <span class="category-count">({{ category.count }})</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="links">
+                    <h3>友情链接</h3>
+                    <ul>
+                        {% for link in links %}
+                            <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </section>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $(".button-collapse").sideNav();
+    </script>
 {% endblock %}

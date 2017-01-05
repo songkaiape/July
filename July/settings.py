@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'pure_pagination',
 ]
 
 MIDDLEWARE = [
@@ -117,9 +118,8 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
-
 # 静态文件路径
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
@@ -127,3 +127,10 @@ STATICFILES_DIRS = [
 # 文件上传路径
 MEDIA_URL = '/static/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "static/uploads")
+
+# 分页
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 2,
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}

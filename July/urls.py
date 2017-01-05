@@ -19,12 +19,11 @@ from blog import views as blog
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    url(r'^$', blog.IndexView.as_view()),
-    url(r'^archive/(?P<cid>\d+)/$', blog.ArticleView.as_view()),
+    url(r'^$', blog.IndexView.as_view(), name="index"),  # 首页
+    url(r'^article/(?P<article_url>.*)/$', blog.ArticleView.as_view(), name='article'),  # 文章页面
     url(r'^upload/$', csrf_exempt(blog.Upload.as_view())),
-    url(r'^about/$', blog.AboutView.as_view()),
-    url(r'^404/$', blog.NotFoundVIew.as_view()),
-    url(r'^category/(?P<category_name>.+)/$', blog.CategoryListVIew.as_view()),
+    url(r'^about/$', blog.AboutView.as_view(), name='about'),
+    url(r'^category/(?P<category_name>.+)/$', blog.CategoryListVIew.as_view(), name='category'),
     url(r'^admin/', admin.site.urls),
     url(r'^\d{4}/\d{2}/(?P<url>\w.+)/$', blog.OldArticleJumps)
 ]

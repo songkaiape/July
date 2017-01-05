@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
-from django.views.generic import FormView, ListView, DateDetailView
-from django.core.paginator import Paginator
-from blog import models
-
+from django.views.generic import FormView, View
+from pure_pagination import Paginator
+from .models import *
+from django.db.models import Q
 from django.conf import settings
 from datetime import datetime
 import time
@@ -12,95 +12,64 @@ import os
 
 # Create your views here.
 
-class MeInfo(object):
-    def get_webhead(self):
-        return models.Settings.objects.filter(id=1).values('title', 'keywords', 'description')[0]
-
-    def get_category_list(self):
-        # 获取分类列表
-        category_list = list(models.Categories.objects.all().values('id', 'name'))
-        # 添加分类次数
-        for category in category_list:
-            count = models.Article.objects.filter(categories__id=category['id']).count()
-            category['count'] = count
-        return category_list
-
-    def get_links(self):
-        # 友情链接
-        return models.Links.objects.all().values('name', 'url')
-
-    def get_icons(self):
-        return list(models.AboutIcon.objects.all().values('icon', 'url'))
-
-    def get_about(self):
-        return models.About.objects.all().values('name', 'avatar', 'declaration')[0]
-
-
-class IndexView(ListView, MeInfo):
-    def get(self, request, *args, **kwargs):
-
+class IndexView(View):
+    def get(self, request):
+        # 文章列表
+        article_list = Article.objects.filter(status=0).values('id', 'title', 'url', 'abstract', 'created_time',
+                                                               'categories__name')
+        # 分页数据
         try:
             page = int(request.GET.get('page', 1))  # 页码
+            page_size = Paginator(article_list, 10, request=request)  # 获取有多少页
+            article_list = page_size.page(page)  # 获取指定页的数据
         except Exception as e:
-            return HttpResponseRedirect('/404')
-
-        # 站点Title信息
-        webhead = self.get_webhead()
-        # 分类信息
-        category_list = self.get_category_list()
-
-        # 文章列表
-        archives = models.Article.objects.filter(status='0').values('id', 'title', 'abstract', 'created_time',
-                                                                    'categories__name')
-
-        limit = 10  # 没页显示多少条
-        paginator = Paginator(archives, limit)  # 实例化一个分页对象
-
-        try:
-            archives = paginator.page(page)  # 获取某页对应的记录
-        except Exception as e:
-            return HttpResponseRedirect('/404')
-
+            return HttpResponseRedirect('/')
         # 加入标签
-        for archive in archives:
-            tags = list(models.Article.objects.filter(title=archive['title']).values('tag__name'))
-            tag = ''
+        for article in article_list.object_list:
+            tags = list(Article.objects.filter(title=article['title']).values('tag__name'))
+            tag = ""
             for t in tags:
                 tag += "#" + t['tag__name'] + " "
             tag.strip()
-            archive['tag'] = tag
-
+            article['tag'] = tag
+        category_list = Categories.objects.all()
+        # 添加分类次数
+        for category in category_list:
+            count = Article.objects.filter(categories__id=category.id).count()
+            category.count = count
         # 友情链接
-        links = self.get_links()
-        # 图标
-        icons = self.get_icons()
-        # 关于我信息
-        about = self.get_about()
-        return render(request, 'index.html', locals())
+        links = Links.objects.all()
+        return render(request, 'index.html', {
+            'article_list': article_list,
+            'category_list': category_list,
+            'links': links,
+            'PATH': 'index'
+        })
 
 
-class ArticleView(DateDetailView, MeInfo):
-    def get(self, request, cid, *args, **kwargs):
-        article = models.Article.objects.filter(id=cid).values('id', 'title', 'body', 'created_time',
-                                                               'categories__name', 'created_time', 'last_modified_time')
-        if len(article) == 1:
-            article = article[0]
-        else:
+class ArticleView(View):
+    def get(self, request, article_url):
+        # 获取文章，可以是文章的ID和URL
+        try:
+            article_url = int(article_url)
+            article = Article.objects.filter(Q(id=article_url) | Q(url=article_url), status=0).first()
+        except ValueError as e:
+            article = Article.objects.filter(url=article_url, status=0).first()
+        # 是否获取到文章
+        if not article:
             return HttpResponseRedirect('/404')
-
-        tags = list(models.Article.objects.filter(title=article['title']).values('tag__name'))
+        # 获取文章所有标签
+        tags = list(Article.objects.filter(title=article.title).values('tag__name'))
         tag = ''
         for t in tags:
             tag += "#" + t['tag__name'] + " "
         tag.strip()
-        article['tag'] = tag
-        webhead = {
-            'title': article['title'],
-            'keywords': article['tag'].replace('#', '').replace(' ', ',').strip(','),
-            'description': article['body'][:200]
-        }
+        title = article.title  # 标题
+        keywords = tag.replace('#', '').replace(' ', ',').strip(',')  # 关键字
+        description = article.body[:200]  # 描述
         url = 'https://' + request.get_host() + request.get_full_path()  # 主机
-        return render(request, 'archive.html', locals())
+        PATH = article_url
+        return render(request, 'article.html', locals())
 
 
 class Upload(FormView):
@@ -109,7 +78,7 @@ class Upload(FormView):
         self.files = request.FILES.get('editormd-image-file', None)  # 获取文件对象
         if self.files:
             self.host = request.META['HTTP_ORIGIN']  # 上传者主题，用于返回URL
-            self.file_name = request.GET.get('guid', str(time.time()).split('.')[0])  # 保存的文件名
+            self.file_name = str(time.time()).split('.')[0]  # 保存的文件名
             result = self.create_file()  # 创建文件
         return HttpResponse(json.dumps(result))
 
@@ -126,54 +95,34 @@ class Upload(FormView):
         return {'success': 1, 'message': 'OK', 'url': file_url}
 
 
-class CategoryListVIew(ListView, MeInfo):
-    def get(self, request, category_name, *args, **kwargs):
-        webhead = models.Categories.objects.filter(name=category_name).values('title', 'keywords', 'description')[0]
+class CategoryListVIew(View):
+    def get(self, request, category_name):
         archive_list = list(
-            models.Article.objects.filter(categories__name=category_name).values('id', 'title', 'created_time'))
+            Article.objects.filter(categories__name=category_name, status=0).values('url', 'title', 'created_time'))
         if len(archive_list) == 0:
             return HttpResponseRedirect('/404')
-        # 获取分类列表
-        category_list = list(models.Categories.objects.all().values('id', 'name'))
+
+        category_list = Categories.objects.all()
         # 添加分类次数
         for category in category_list:
-            count = models.Article.objects.filter(categories__id=category['id']).count()
-            category['count'] = count
+            count = Article.objects.filter(categories__id=category.id).count()
+            category.count = count
         # 友情链接
-        links = self.get_links()
-        # 图标
-        icons = self.get_icons()
-        # 关于我信息
-        about = self.get_about()
-
+        links = Links.objects.all()
         return render(request, 'category.html', locals())
 
 
-class AboutView(DateDetailView, MeInfo):
-    def get(self, request, *args, **kwargs):
-        articleid = models.About.objects.all().values('article')[0]
-        article = models.Article.objects.filter(id=articleid['article']).values('title', 'body')[0]
-        tags = list(models.Article.objects.filter(title=article['title']).values('tag__name'))
-        tag = ''
-        for t in tags:
-            tag += "#" + t['tag__name'] + " "
-        tag.strip()
-        article['tag'] = tag
-        about = self.get_about()
-        webhead = {
-            'title': '关于 | ' + about['name'],
-            'description': about['declaration'],
-            'keywords': article['tag'].replace('#', '').replace(' ', ',').strip(',')
-        }
+class AboutView(View):
+    def get(self, request):
+        PATH = 'about'
+        article = Article.objects.filter(status=1, id=1).first()
         return render(request, 'about.html', locals())
 
 
-class NotFoundVIew(DateDetailView, MeInfo):
-    def get(self, request, *args, **kwargs):
-        webhead = self.get_webhead()
-        return render(request, '404.html', locals())
-
-
 def OldArticleJumps(request, url):
-    ID = models.Article.objects.filter(url=url.split('.')[0]).values('id')[0]['id']
-    return HttpResponseRedirect('/article/%d' % ID)
+    """旧文章跳转"""
+    URL = Article.objects.filter(url=url.split('.')[0])
+    if URL:
+        return HttpResponseRedirect('/article/%s' % URL)
+    else:
+        return HttpResponseRedirect('/')

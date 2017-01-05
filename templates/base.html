@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}安生's Blog | 大好时光！{% endblock %}</title>
+    <meta name="keywords" content={% block keywords %}安生,python,python全栈之路{% endblock %}>
+    <meta name="description" content={% block description %}笔名安生，用博客记录成长!{% endblock %}>
+    <link rel="stylesheet" href="//cdn.bootcss.com/materialize/0.97.8/css/materialize.css">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.js"></script>
+    <script src="//cdn.bootcss.com/materialize/0.97.8/js/materialize.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+<header class="page-header">
+    <nav>
+        <div class="nav-wrapper container col s8 m8 l8">
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="hide-on-med-and-down">
+                <li {% ifequal PATH 'index' %} class="active"{% endifequal %}><a href="{% url 'index' %}">首页</a></li>
+                <li {% ifequal PATH 'python-full-stack-way' %} class="active"{% endifequal %}>
+                    <a href="{% url 'article' 'python-full-stack-way' %}">Python全栈之路</a>
+                </li>
+                <li {% ifequal PATH 'about' %} class="active"{% endifequal %}><a href="{% url 'about' %}">关于</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#">日记</a></li>
+                <li><a href="#">Python全栈之路</a></li>
+                <li><a href="#">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+{% block section %}{% endblock %}
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">页脚内容</h5>
+                <p class="grey-text text-lighten-4">这里是页脚内容，可我并不知道要写些什么，sorry~</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">链接</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#">这是一个空链接</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">这又是一个空链接</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">这TM怎么又是一个空连接</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">没错，玩你呢~</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Copyright @ 2016-2017 安生 版权所有 鄂ICP备16022941号
+        </div>
+    </div>
+</footer>
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+        <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+        <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+        <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+        <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
+</div>
+{% block javascript %}{% endblock %}
+</body>
+</html>

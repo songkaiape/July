@@ -1,6 +1,10 @@
+.article-centent {
+    flex: 1 0 auto;
+    width: 100%;
+}
+
 .article-centent > article {
     background: #ffffff;
-    margin: 25px 0;
     padding: 20px 30px;
     border: 1px solid #eeeeee;
 }

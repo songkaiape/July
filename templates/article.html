@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/article.css' %}">
 {% endblock %}
@@ -10,11 +12,24 @@
         <article>
             <header>
                 <h1>{{ article.title }}</h1>
+
+                <div class="article-meta">
+                    <i class="fa fa-calendar" aria-hidden="true"> {{ article.created_time }}</i>
+                    <i class="fa fa-folder" aria-hidden="true"> {{ article.categories }}</i>
+                    <i class="fa fa-tag" aria-hidden="true"> {{ tag }}</i>
+                </div>
+
             </header>
             <div class="article_body">
                 <div id="content_body">
                     <textarea>{{ article.body }}</textarea>
                 </div>
+
+            </div>
+            <div class="article-copyright">
+                <p>当前文章非永久URL：{{ url }}</p>
+                <p>创建时间：{{ article.created_time }}</p>
+                <p>更新时间：{{ article.last_modified_time }}</p>
             </div>
         </article>
         <footer class="article-comment">
@@ -39,6 +54,8 @@
     </noscript>
     <script>
         $(".button-collapse").sideNav();
+
+
         var editor = editormd.markdownToHTML('content_body', {
             htmlDecode: "style,script,iframe",
             emoji: true,
@@ -48,9 +65,11 @@
             sequenceDiagram: true  // 默认不解析
         });
 
+
         var d = document, s = d.createElement('script');
         s.src = '//blog-ansheng-me.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     </script>
+
 {% endblock %}
