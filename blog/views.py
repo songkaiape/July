@@ -2,7 +2,6 @@ from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from django.views.generic import FormView, View
 from pure_pagination import Paginator
 from .models import *
-from django.db.models import Q
 from django.conf import settings
 from datetime import datetime
 import time
@@ -52,7 +51,8 @@ class ArticleView(View):
         # 获取文章，可以是文章的ID和URL
         try:
             article_url = int(article_url)
-            article = Article.objects.filter(Q(id=article_url) | Q(url=article_url), status=0).first()
+            article = Article.objects.filter(id=article_url, status=0).first()
+            return HttpResponseRedirect('/article/%s' % article.url)
         except ValueError as e:
             article = Article.objects.filter(url=article_url, status=0).first()
         # 是否获取到文章
