@@ -17,8 +17,11 @@ from django.conf.urls import url
 from django.contrib import admin
 from blog import views as blog
 from django.views.decorators.csrf import csrf_exempt
+from blog.feeds import RssSiteNewsFeed, AtomSiteNewsFeed
 
 urlpatterns = [
+    url(r'^rss.xml$', RssSiteNewsFeed()),
+    url(r'^atom.xml$', AtomSiteNewsFeed()),
     url(r'^$', blog.IndexView.as_view(), name="index"),  # 首页
     url(r'^article/(?P<article_url>.*)/$', blog.ArticleView.as_view(), name='article'),  # 文章页面
     url(r'^upload/$', csrf_exempt(blog.Upload.as_view())),
