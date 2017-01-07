@@ -19,7 +19,15 @@ from blog import views as blog
 from django.views.decorators.csrf import csrf_exempt
 from blog.feeds import RssSiteNewsFeed, AtomSiteNewsFeed
 
+from django.contrib.sitemaps.views import sitemap
+from blog.sitemap import BlogSitemap
+
+sitemaps = {
+    'static': BlogSitemap,
+}
 urlpatterns = [
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'),
     url(r'^rss.xml$', RssSiteNewsFeed()),
     url(r'^atom.xml$', AtomSiteNewsFeed()),
     url(r'^$', blog.IndexView.as_view(), name="index"),  # 首页
