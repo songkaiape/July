@@ -3,25 +3,40 @@
 
 from django.contrib.syndication.views import Feed
 from .models import Article
-from django.utils.feedgenerator import Atom1Feed
 from django.utils.feedgenerator import Rss201rev2Feed
+from django.utils.feedgenerator import Atom1Feed
+from markdown2 import markdown
+
+
+class ExtendedRSSFeed(Rss201rev2Feed):
+    mime_type = 'application/xml'
 
 
 class RssSiteNewsFeed(Feed):
-    feed_type = Rss201rev2Feed
+    feed_type = ExtendedRSSFeed
     author_name = "安生"
-    title = "安生标题"
+    title = "安生's Blog | 大好时光！"
     link = "https://blog.ansheng.me/"
-    description = "安生描述"
+    description = "大好时光"
+    feed_url = 'https://blog.ansheng.me/rss.xml'
 
     def items(self):
-        return Article.objects.all().order_by('-created_time')[:5]
+        return Article.objects.all().order_by('-created_time')
 
     def item_title(self, item):
         return item.title
 
+    def item_description(self, item):
+        return markdown(item.abstract)
+
     def item_link(self, item):
         return '/article/%s' % item.url
+
+    def item_pubdate(self, item):
+        return item.created_time
+
+    def item_guid(self, item):
+        return
 
 
 class AtomSiteNewsFeed(RssSiteNewsFeed):
