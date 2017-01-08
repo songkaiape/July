@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 {% block section %}
-    <section class="article-list container col s8 m8 l8 ">
+    <section class="article-list container col l8 ">
         <div class="row">
-            <section class="col s9 m9 l9 push-s9 article-list-left">
+            <section class="col l9 s12 article-list-left">
                 <ul>
                     {# 文章列表 #}
                     {% for article in article_list.object_list %}
@@ -33,7 +33,7 @@
                     {% endfor %}
                 </ul>
             </section>
-            <section class="col s3 m3 l3 push-s3 article-list-right">
+            <section class="col l3 s12 article-list-right">
                 <div class="auto-me">
                     <div class="me-avatar">
                         <img src="{% static 'image/avatar.png' %}">
@@ -45,6 +45,9 @@
                     <div class="me-icon">
                         <a href="https://github.com/anshengme">
                             <i class="fa fa-github" aria-hidden="true"></i>
+                        </a>
+                        <a href="https://blog.ansheng.me/rss.xml">
+                            <i class="fa fa-rss" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -68,12 +71,12 @@
                     </ul>
                 </div>
             </section>
-            <section class="col s12 m12 l12">
+            <section class="col l12">
                 <ul class="pagination">
                     {# 上一页 #}
                     {% if article_list.has_previous %}
                         <li class="waves-effect"><a href="?{{ article_list.previous_page_number.querystring }}"><i
-                                class="material-icons">chevron_left</i></a></li>
+                                class="material-icons">chevron_left</i></a>
                         </li>
                     {% endif %}
                     {% for page in article_list.pages %}

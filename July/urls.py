@@ -26,10 +26,9 @@ sitemaps = {
     'static': BlogSitemap,
 }
 urlpatterns = [
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^rss.xml$', RssSiteNewsFeed()),
-    url(r'^atom.xml$', AtomSiteNewsFeed()),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^rss\.xml$', RssSiteNewsFeed()),
+    url(r'^atom\.xml$', AtomSiteNewsFeed()),
     url(r'^$', blog.IndexView.as_view(), name="index"),  # 首页
     url(r'^article/(?P<article_url>.*)/$', blog.ArticleView.as_view(), name='article'),  # 文章页面
     url(r'^upload/$', csrf_exempt(blog.Upload.as_view())),
