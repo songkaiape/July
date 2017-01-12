@@ -33,44 +33,7 @@
                     {% endfor %}
                 </ul>
             </section>
-            <section class="col l3 s12 article-list-right">
-                <div class="auto-me">
-                    <div class="me-avatar">
-                        <img src="{% static 'image/avatar.png' %}">
-                    </div>
-                    <div class="me-name">
-                        <h3>安生</h3>
-                    </div>
-                    <div class="me-declaration">你的烦恼说不定在这家网站可以找到，欢迎经常来光顾~</div>
-                    <div class="me-icon">
-                        <a href="https://github.com/anshengme">
-                            <i class="fa fa-github" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://blog.ansheng.me/rss.xml">
-                            <i class="fa fa-rss" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="category-list">
-                    <h3>分类列表</h3>
-                    <ul>
-                        {% for category in category_list %}
-                            <li>
-                                <a href="/category/{{ category.name }}" class="category-name">{{ category.name }}</a>
-                                <span class="category-count">({{ category.count }})</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                <div class="links">
-                    <h3>友情链接</h3>
-                    <ul>
-                        {% for link in links %}
-                            <li><a href="{{ link.url }}">{{ link.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </section>
+            {% include 'right-info.html' %}
             <section class="col l12">
                 <ul class="pagination">
                     {# 上一页 #}

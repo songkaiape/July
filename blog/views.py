@@ -42,7 +42,6 @@ class IndexView(View):
             'article_list': article_list,
             'category_list': category_list,
             'links': links,
-            'PATH': 'index'
         })
 
 
@@ -68,7 +67,6 @@ class ArticleView(View):
         keywords = tag.replace('#', '').replace(' ', ',').strip(',')  # 关键字
         description = article.body[:200]  # 描述
         url = 'https://' + request.get_host() + request.get_full_path()  # 主机
-        PATH = article_url
         return render(request, 'article.html', locals())
 
 
@@ -114,15 +112,5 @@ class CategoryListVIew(View):
 
 class AboutView(View):
     def get(self, request):
-        PATH = 'about'
-        article = Article.objects.filter(status=1, id=1).first()
+        article = Article.objects.filter(id=1).first()
         return render(request, 'about.html', locals())
-
-
-def OldArticleJumps(request, url):
-    """旧文章跳转"""
-    URL = Article.objects.filter(url=url.split('.')[0])
-    if URL:
-        return HttpResponseRedirect('/article/%s' % URL)
-    else:
-        return HttpResponseRedirect('/')

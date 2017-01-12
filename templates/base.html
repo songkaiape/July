@@ -23,17 +23,16 @@
         <div class="nav-wrapper container col s8 m8 l8">
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="hide-on-med-and-down">
-                <li {% ifequal PATH 'index' %} class="active"{% endifequal %}><a href="{% url 'index' %}">首页</a></li>
-                <li {% ifequal PATH 'python-full-stack-way' %} class="active"{% endifequal %}>
-                    <a href="{% url 'article' 'python-full-stack-way' %}">Python全栈之路</a>
+                <li {% ifequal request.path '/' %} class="active"{% endifequal %}><a href="{% url 'index' %}">首页</a>
                 </li>
-                <li {% ifequal PATH 'about' %} class="active"{% endifequal %}><a href="{% url 'about' %}">关于</a></li>
+                <li {% ifequal request.path '/about/' %} class="active"{% endifequal %}><a
+                        href="{% url 'about' %}">关于</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">日记</a></li>
-                <li><a href="#">Python全栈之路</a></li>
-                <li><a href="#">关于</a></li>
+                <li {% ifequal request.path '/' %} class="active"{% endifequal %}><a href="{% url 'index' %}">首页</a>
+                </li>
+                <li {% ifequal request.path '/about/' %} class="active"{% endifequal %}><a
+                        href="{% url 'about' %}">关于</a></li>
             </ul>
         </div>
     </nav>
