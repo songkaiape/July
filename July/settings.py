@@ -126,8 +126,8 @@ STATICFILES_DIRS = [
 ]
 
 # 文件上传路径
-MEDIA_URL = STATIC_URL + 'uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+MEDIA_URL = '/static/uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploads')
 
 # 分页
 PAGINATION_SETTINGS = {
