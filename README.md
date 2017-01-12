@@ -2,19 +2,20 @@
 
 七月，一个用`python3`中的`Django`框架实现的简单小博客，没事自己拿来玩，欢迎指导！
 
-## Quick Start
+[Demo](https://blog.ansheng.me/)
 
-### Create a new post
-
-``` bash
-$ wget https://github.com/anshengme/July/archive/v0.1.0.tar.gz
-$ tar xf v0.1.0.tar.gz
-$ cd ./July-0.1.0
-$ pip install -r requirements.txt
-```
-
-### Run server
+## Create a new post
 
 ``` bash
-$ python manage.py runserver
+[root@July ~]# virtualenv July
+[root@July July]# source bin/activate
+(July) [root@July July]# git clone https://github.com/anshengme/July.git
+(July) [root@July July]# cd July/
+(July) [root@July July]# pip install -r requirements.txt
+(July) [root@July July]# python manage.py makemigrations
+(July) [root@July July]# python manage.py migrate
+(July) [root@July July]# python manage.py runserver
 ```
+
+![blog](https://github.com/anshengme/July/raw/master/doc/blog.png)
+
