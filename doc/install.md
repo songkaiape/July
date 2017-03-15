@@ -1,11 +1,8 @@
 ## 部署July
----
-
-[TOC]
-
----
 
 安装CentOS是使用`mini`版的镜像安装的，所以在部署的过程中我们安装所需要的所有依赖包。
+
+---
 
 - 环境查看
 
@@ -273,7 +270,7 @@ tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      
 
 然后你会看到这个，如图：
 
-![blog](https://github.com/anshengme/July/raw/master/doc/home.png)
+![blog](https://github.com/anshengme/July/raw/master/doc/img/home.png)
 
 ### 一些信息
 
