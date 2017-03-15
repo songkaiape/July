@@ -18,4 +18,3 @@
 ```
 
 ![blog](https://github.com/anshengme/July/raw/master/doc/blog.png)
-

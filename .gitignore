@@ -1,5 +1,13 @@
 __pycache__/
-*.py[cod]
-*$py.class
 
+# PYCHARM
 .idea
+
+# MAC
+.DS_Store
+
+# DB file
+db.sqlite3
+
+# model sql file
+migrations
